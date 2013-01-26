@@ -2112,7 +2112,7 @@ static int rk29_sdmmc_start_request(struct mmc_host *mmc )
 
     //check data-busy if the current command has the bit13 in command register.
     if( cmdr & SDMMC_CMD_PRV_DAT_WAIT )
-    {        
+    {
         if(SDM_SUCCESS != rk29_sdmmc_wait_unbusy(host))   //if(rk29_sdmmc_read(host->regs, SDMMC_STATUS) & SDMMC_STAUTS_DATA_BUSY)
         {
         	host->mrq = host->new_mrq;///
@@ -2403,7 +2403,7 @@ static void rk29_sdmmc_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
         {
             case MMC_POWER_UP:
             	rk29_sdmmc_write(host->regs, SDMMC_PWREN, POWER_ENABLE);
-            	            	
+
             	//reset the controller if it is SDMMC0
             	if(RK29_CTRL_SDMMC_ID == host->pdev->id)
             	{
@@ -2426,7 +2426,7 @@ static void rk29_sdmmc_set_ios(struct mmc_host *mmc, struct mmc_ios *ios)
                 {
                 	rk29_sdmmc_control_clock(host, FALSE);
                 	rk29_sdmmc_write(host->regs, SDMMC_PWREN, POWER_DISABLE);
-                	                
+
                 	if(5 == host->bus_mode)
                 	{
                         mdelay(5);
@@ -2548,8 +2548,8 @@ static irqreturn_t rk29_sdmmc_sdio_irq_cb(int irq, void *dev_id)
 
 static void rk29_sdmmc_enable_sdio_irq(struct mmc_host *mmc, int enable)
 {
-#if !defined(CONFIG_RK29_SDIO_IRQ_FROM_GPIO)	
-	u32 intmask;	
+#if !defined(CONFIG_RK29_SDIO_IRQ_FROM_GPIO)
+	u32 intmask;
 	unsigned long flags;
 #endif	
 	struct rk29_sdmmc *host = mmc_priv(mmc);
@@ -2564,15 +2564,15 @@ static void rk29_sdmmc_enable_sdio_irq(struct mmc_host *mmc, int enable)
 #else
     spin_lock_irqsave(&host->lock, flags);
 
-	intmask = rk29_sdmmc_read(host->regs, SDMMC_INTMASK);	
+	intmask = rk29_sdmmc_read(host->regs, SDMMC_INTMASK);
 	if(enable)
 		rk29_sdmmc_write(host->regs, SDMMC_INTMASK, intmask | SDMMC_INT_SDIO);
 	else
 		rk29_sdmmc_write(host->regs, SDMMC_INTMASK, intmask & ~SDMMC_INT_SDIO);
 
-	spin_unlock_irqrestore(&host->lock, flags);	
-#endif		
-    
+	spin_unlock_irqrestore(&host->lock, flags);
+#endif
+
     
 }
 
@@ -2966,7 +2966,7 @@ static void rk29_sdmmc_tasklet_func(unsigned long priv)
                 {
                     del_timer_sync(&host->request_timer);
                 }
-                
+
                 if (!rk29_sdmmc_test_and_clear_pending(host, EVENT_CMD_COMPLETE))
                 	break;
                  host->errorstep = 0xfb;
@@ -3487,7 +3487,7 @@ static int rk29_sdmmc_probe(struct platform_device *pdev)
 		ret = -ENOMEM;
 		goto rel_regions;
 	}	
-    
+
 	host = mmc_priv(mmc);
     host->mmc = mmc;
     host->pdev = pdev;
@@ -3901,7 +3901,7 @@ static void rk29_sdmmc_sdcard_resume(struct rk29_sdmmc *host)
 	disable_irq_wake(host->gpio_irq);
 	free_irq(host->gpio_irq,host);
 	gpio_free(RK29_SDMMC0DETECTN_GPIO);
-	
+
 #if defined(CONFIG_ARCH_RK29)
     rk29_mux_api_set(GPIO2A2_SDMMC0DETECTN_NAME, GPIO2L_SDMMC0_DETECT_N);
 #elif defined(CONFIG_ARCH_RK30)
