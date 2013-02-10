@@ -3850,8 +3850,7 @@ static int __exit rk29_sdmmc_remove(struct platform_device *pdev)
 	return 0;
 }
 
-#ifdef TEMP
-//#ifdef CONFIG_PM
+#ifdef CONFIG_PM
 
 static irqreturn_t det_keys_isr(int irq, void *dev_id)
 {
