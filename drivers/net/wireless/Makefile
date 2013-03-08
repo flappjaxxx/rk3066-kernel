@@ -1,7 +1,7 @@
 #
 # Makefile for the Linux Wireless network device drivers.
 #
-
+obj-y += rkwifi_sys_iface.o
 obj-$(CONFIG_BCM40181) += bcm40181/
 obj-$(CONFIG_BCM4329)   += bcm4329/
 obj-$(CONFIG_MV8686)   += mv8686/
